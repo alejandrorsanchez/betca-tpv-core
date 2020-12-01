@@ -17,7 +17,7 @@
    1. **Next** … **Finish**.   
 3. Ejecución.
    1. Desplegar el proyecto localmente: `> mvn clean install`
-   1. Arrancar el proyecto: `> mvn spring-boot:run -pl shop-application`
+   1. Arrancar el proyecto: `> mvn spring-boot:run`
 
 ## :book: Documentación del proyecto
 ![](docs/betca_tpv_user_packages.png)
