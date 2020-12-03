@@ -135,7 +135,7 @@ public class PdfCoreBuilder {
 
     public PdfCoreBuilder image(String fileName) {
         try {
-            Image img = new Image(ImageDataFactory.create(new ClassPathResource("img/" + fileName).getURL()));
+            Image img = new Image(ImageDataFactory.create(new ClassPathResource("imges/" + fileName).getURL()));
             img.setWidth(IMAGE_WIDTH);
             img.setHorizontalAlignment(HorizontalAlignment.CENTER);
             this.document.add(img);

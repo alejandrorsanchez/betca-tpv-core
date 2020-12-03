@@ -6,7 +6,8 @@ on:
       - master
 
 jobs:
-  build:
+  deploy:
+    name: Deploy on Heroku
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
