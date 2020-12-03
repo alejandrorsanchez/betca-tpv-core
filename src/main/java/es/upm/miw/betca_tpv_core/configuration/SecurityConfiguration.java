@@ -1,5 +1,6 @@
 package es.upm.miw.betca_tpv_core.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,13 @@ import reactor.core.publisher.Mono;
 @EnableWebFluxSecurity
 public class SecurityConfiguration {
 
+    private final JwtService jwtService;
+
+    @Autowired
+    public SecurityConfiguration(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
     @Bean
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
         return http
@@ -28,11 +36,11 @@ public class SecurityConfiguration {
                 .build();
     }
 
-
     private AuthenticationWebFilter bearerAuthenticationFilter() {
-        AuthenticationWebFilter bearerAuthenticationFilter = new AuthenticationWebFilter(new JwtAuthenticationManager());
+        AuthenticationWebFilter bearerAuthenticationFilter =
+                new AuthenticationWebFilter(new JwtAuthenticationManager(jwtService));
         bearerAuthenticationFilter.setServerAuthenticationConverter(serverWebExchange -> {
-            String token = JwtUtil.extractBearerToken(
+            String token = jwtService.extractBearerToken(
                     serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
             return Mono.just(new UsernamePasswordAuthenticationToken(token, token));
         });

@@ -12,11 +12,17 @@ import java.util.List;
 
 public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
 
+    private JwtService jwtService;
+
+    public JwtAuthenticationManager(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
     @Override
     public Mono< Authentication > authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
-        GrantedAuthority authority = new SimpleGrantedAuthority(Role.prefix + JwtUtil.role(token));
+        GrantedAuthority authority = new SimpleGrantedAuthority(Role.prefix + jwtService.role(token));
         return Mono.just(new UsernamePasswordAuthenticationToken(
-                JwtUtil.user(token), authentication.getCredentials(), List.of(authority)));
+                jwtService.user(token), authentication.getCredentials(), List.of(authority)));
     }
 }

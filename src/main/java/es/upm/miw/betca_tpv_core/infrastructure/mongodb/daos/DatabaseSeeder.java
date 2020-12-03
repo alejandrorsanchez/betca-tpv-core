@@ -7,7 +7,6 @@ import es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos.synchronous.*;
 import es.upm.miw.betca_tpv_core.infrastructure.mongodb.entities.*;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,31 +19,23 @@ import static java.math.BigDecimal.ZERO;
 
 @Service
 public class DatabaseSeeder {
-
-    private static final String VARIOUS_CODE = "1";
-    private static final String VARIOUS_NAME = "Various";
-    private static final String VARIOUS_PHONE = "000000000";
-
     private ArticleDao articleDao;
     private ProviderDao providerDao;
     private ArticlesTreeDao articlesTreeDao;
     private TicketDao ticketDao;
     private CashierDao cashierDao;
 
+    private DatabaseStarting databaseStarting;
+
     @Autowired
-    public DatabaseSeeder(Environment environment, ArticleDao articleDao, ProviderDao providerDao,
-                          ArticlesTreeDao articlesTreeDao, TicketDao ticketDao, CashierDao cashierDao) {
+    public DatabaseSeeder(ArticleDao articleDao, ProviderDao providerDao, ArticlesTreeDao articlesTreeDao,
+                          TicketDao ticketDao, CashierDao cashierDao, DatabaseStarting databaseStarting) {
         this.articleDao = articleDao;
         this.providerDao = providerDao;
         this.articlesTreeDao = articlesTreeDao;
         this.ticketDao = ticketDao;
         this.cashierDao = cashierDao;
-        String[] profiles = environment.getActiveProfiles();
-        if (Arrays.asList(profiles).contains("dev")) {
-            this.deleteAllAndInitializeAndSeedDataBase();
-        } else if (Arrays.asList(profiles).contains("prod")) {
-            this.initialize();
-        }
+        this.databaseStarting = databaseStarting;
     }
 
     public void deleteAllAndInitializeAndSeedDataBase() {
@@ -61,26 +52,7 @@ public class DatabaseSeeder {
         this.cashierDao.deleteAll();
 
         LogManager.getLogger(this.getClass()).warn("------- Delete All -----------");
-        this.initialize();
-    }
-
-    private void initialize() {
-        if (this.articleDao.findByBarcode(VARIOUS_CODE).isEmpty()) {
-            ProviderEntity provider = this.providerDao.save(ProviderEntity.builder().company(VARIOUS_NAME)
-                    .nif(VARIOUS_NAME).phone(VARIOUS_PHONE).active(true).build());
-            this.articleDao.save(ArticleEntity.builder().barcode(VARIOUS_CODE).reference(VARIOUS_NAME)
-                    .description(VARIOUS_NAME).retailPrice(new BigDecimal("100.00")).stock(1000)
-                    .providerEntity(provider).registrationDate(LocalDateTime.now()).tax(Tax.GENERAL)
-                    .discontinued(false).build());
-            LogManager.getLogger(this.getClass()).warn("------- Create Article Various -----------");
-        }
-        if (this.cashierDao.findFirstByOrderByOpeningDateDesc().isEmpty()) {
-            this.cashierDao.save(CashierEntity.builder().initialCash(ZERO).cashSales(ZERO)
-                    .cardSales(ZERO).usedVouchers(ZERO).deposit(ZERO).withdrawal(ZERO).lostCash(ZERO).lostCard(ZERO)
-                    .finalCash(ZERO).comment("Initial").openingDate(LocalDateTime.now()).closureDate(LocalDateTime.now())
-                    .build());
-            LogManager.getLogger(this.getClass()).warn("------- Create cashierClosure -----------");
-        }
+        this.databaseStarting.initialize();
     }
 
     private void seedDataBaseJava() {

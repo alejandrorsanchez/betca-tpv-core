@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 @TestConfig
 class ArticlesTreeReactiveIT {
 
@@ -16,9 +18,8 @@ class ArticlesTreeReactiveIT {
 
     @Test
     void testFindAll() {
-        List< ArticlesTreeEntity > x = this.articlesTreeDao.findByReference("root");
-        System.out.println("DB: " + x);
-        x.get(0).contents().stream().forEach(z -> System.out.println(z));
+        List< ArticlesTreeEntity > list = this.articlesTreeDao.findByReference("root");
+        assertFalse(list.isEmpty());
     }
 
 }
