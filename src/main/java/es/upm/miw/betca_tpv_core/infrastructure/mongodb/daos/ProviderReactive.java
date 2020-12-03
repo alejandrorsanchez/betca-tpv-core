@@ -12,16 +12,16 @@ public interface ProviderReactive extends ReactiveSortingRepository< ProviderEnt
     Mono< ProviderEntity > findByNif(String nif);
 
     @Query("{$and:[" // allow NULL in barcode
-            + "?#{ [0] == null ? { $where : 'true'} : { company : {$regex:[0], $options: 'i'} } },"
+            + "?#{ [0] == null ? {_id : {$ne:null}} : { company : {$regex:[0], $options: 'i'} } },"
             + "{active : true}"
             + "] }")
     Flux< ProviderEntity > findByCompanyAndActiveIsTrueNullSave(String company);
 
     @Query("{$and:[" // allow NULL: all elements
-            + "?#{ [0] == null ? { $where : 'true'} : { company : {$regex:[0], $options: 'i'} } },"
-            + "?#{ [1] == null ? { $where : 'true'} : { nif : {$regex:[1], $options: 'i'} } },"
-            + "?#{ [2] == null ? { $where : 'true'} : { phone : {$regex:[2], $options: 'i'} } },"
-            + "?#{ [3] == null ? { $where : 'true'} : { note :{$regex:[3], $options: 'i'} }  }"
+            + "?#{ [0] == null ? {_id : {$ne:null}} : { company : {$regex:[0], $options: 'i'} } },"
+            + "?#{ [1] == null ? {_id : {$ne:null}} : { nif : {$regex:[1], $options: 'i'} } },"
+            + "?#{ [2] == null ? {_id : {$ne:null}} : { phone : {$regex:[2], $options: 'i'} } },"
+            + "?#{ [3] == null ? {_id : {$ne:null}} : { note :{$regex:[3], $options: 'i'} }  }"
             + "] }")
     Flux< ProviderEntity > findByCompanyAndNifAndSPhoneAndNoteNullSafe(
             String company, String nif, String phone, String note);

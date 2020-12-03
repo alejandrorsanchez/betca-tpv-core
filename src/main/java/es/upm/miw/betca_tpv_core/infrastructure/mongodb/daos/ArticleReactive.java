@@ -10,11 +10,11 @@ public interface ArticleReactive extends ReactiveSortingRepository< ArticleEntit
     Mono< ArticleEntity > findByBarcode(String barcode);
 
     @Query("{$and:[" // allow NULL: all elements
-            + "?#{ [0] == null ? { $where : 'true'} : { barcode : {$regex:[0], $options: 'i'} } },"
-            + "?#{ [1] == null ? { $where : 'true'} : { description : {$regex:[1], $options: 'i'} } },"
-            + "?#{ [2] == null ? { $where : 'true'} : { reference : {$regex:[2], $options: 'i'} } },"
-            + "?#{ [3] == null ? { $where : 'true'} : { stock : {$lt:[3]} } },"
-            + "?#{ [4] == null ? { $where : 'true'} : { discontinued : [4] } }"
+            + "?#{ [0] == null ? {_id : {$ne:null}} : { barcode : {$regex:[0], $options: 'i'} } },"
+            + "?#{ [1] == null ? {_id : {$ne:null}} : { description : {$regex:[1], $options: 'i'} } },"
+            + "?#{ [2] == null ? {_id : {$ne:null}} : { reference : {$regex:[2], $options: 'i'} } },"
+            + "?#{ [3] == null ? {_id : {$ne:null}} : { stock : {$lt:[3]} } },"
+            + "?#{ [4] == null ? {_id : {$ne:null}} : { discontinued : [4] } }"
             + "] }")
     Flux< ArticleEntity > findByBarcodeAndDescriptionAndReferenceAndStockLessThanAndDiscontinuedNullSafe(
             String barcode, String description, String reference, Integer stock, Boolean discontinued);
@@ -22,7 +22,7 @@ public interface ArticleReactive extends ReactiveSortingRepository< ArticleEntit
     Flux< ArticleEntity > findByProviderEntityIsNull();
 
     @Query("{$and:[" // allow NULL in barcode
-            + "?#{ [0] == null ? { $where : 'true'} : { barcode : {$regex:[0], $options: 'i'} } },"
+            + "?#{ [0] == null ? {_id : {$ne:null}} : { barcode : {$regex:[0], $options: 'i'} } },"
             + "{discontinued : false}"
             + "] }")
     Flux< ArticleEntity > findByBarcodeLikeAndNotDiscontinuedNullSafe(String barcode);
