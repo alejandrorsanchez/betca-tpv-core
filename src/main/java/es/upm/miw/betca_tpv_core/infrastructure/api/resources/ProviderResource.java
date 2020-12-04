@@ -59,8 +59,7 @@ public class ProviderResource {
         LogManager.getLogger(this.getClass()).debug("----------- oooo ---------------");
         LogManager.getLogger(this.getClass()).debug("params: " + company + ',' + nif + ',' + phone + ',' + note);
         return this.providerService.findByCompanyAndNifAndSPhoneAndNoteNullSafe(company, nif, phone, note)
-                .map(Provider::ofCompanyPhoneNote)
-                .doOnNext(LogManager.getLogger(this.getClass())::debug);
+                .map(Provider::ofCompanyPhoneNote);// .doOnNext(LogManager.getLogger(this.getClass())::debug);
     }
 
 }

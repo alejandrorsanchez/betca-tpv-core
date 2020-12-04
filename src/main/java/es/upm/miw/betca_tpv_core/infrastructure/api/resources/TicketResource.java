@@ -27,14 +27,12 @@ public class TicketResource {
 
     @PostMapping(produces = {"application/json"})
     public Mono< Ticket > create(@Valid @RequestBody Ticket ticket) {
-        return this.ticketService.create(ticket)
-                .doOnNext(LogManager.getLogger(this.getClass())::debug);
+        return this.ticketService.create(ticket);
     }
 
     @GetMapping(value = ID_ID + RECEIPT, produces = {"application/pdf", "application/json"})
     public Mono< byte[] > receipt(@PathVariable String id) {
-        return this.ticketService.receipt(id)
-                .doOnNext(pdf -> LogManager.getLogger(this.getClass()).debug("PDF........."));
+        return this.ticketService.receipt(id);
     }
 
 }

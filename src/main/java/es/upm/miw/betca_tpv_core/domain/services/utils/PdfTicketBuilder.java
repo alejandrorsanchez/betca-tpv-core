@@ -1,7 +1,10 @@
 package es.upm.miw.betca_tpv_core.domain.services.utils;
 
+import es.upm.miw.betca_tpv_core.domain.model.Property;
 import es.upm.miw.betca_tpv_core.domain.model.ShoppingState;
 import es.upm.miw.betca_tpv_core.domain.model.Ticket;
+import org.springframework.boot.actuate.beans.BeansEndpoint;
+import org.springframework.context.ApplicationContext;
 
 import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
@@ -13,9 +16,10 @@ public class PdfTicketBuilder {
     private static final float[] TABLE_COLUMNS_SIZES_TICKETS = {90, 15, 25, 35, 15};
     private static final String PATH = "/tpv-pdfs/tickets/";
     private static final String FILE = "ticket-";
-    private static final String URL = "http://localhost:4200/deliveries/";
+    private static final String BOOKINGS = "/home/bookings/";
 
     public byte[] generateTicket(Ticket ticket) {
+
         PdfCoreBuilder pdf = new PdfCoreBuilder(PATH, FILE + ticket.getId());
         pdf.head();
         if (ticket.hasDebt()) {
@@ -46,7 +50,7 @@ public class PdfTicketBuilder {
             if (ticket.getUser() != null) {
                 pdf.paragraph("Contact phone: " + ticket.getUser().getMobile() + " - " + ticket.getUser().getFirstName());
             }
-            pdf.qrCode(URL + ticket.getReference());
+            pdf.qrCode(Property.getProperty().getMiwTpv() + BOOKINGS + ticket.getReference());
         }
         return pdf.foot().build();
     }

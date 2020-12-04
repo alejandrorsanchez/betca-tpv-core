@@ -37,8 +37,7 @@ public class CashierResource {
     @GetMapping(value = LAST)
     public Mono< CashierLastDto > findLast() {
         return this.cashierService.findLast()
-                .map(CashierLastDto::new)
-                .doOnNext(LogManager.getLogger(this.getClass())::debug);
+                .map(CashierLastDto::new);
     }
 
     @GetMapping(value = LAST + STATE)
