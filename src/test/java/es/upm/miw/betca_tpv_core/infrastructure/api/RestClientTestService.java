@@ -6,18 +6,17 @@ import es.upm.miw.betca_tpv_core.infrastructure.api.http_errors.Role;
 import es.upm.miw.betca_tpv_core.infrastructure.api.http_errors.UnauthorizedException;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @Service
 public class RestClientTestService {
-
-    @Value("${server.servlet.contextPath}")
-    private String contextPath;
+    private JwtService jwtService;
 
     @Autowired
-    private JwtService jwtService;
+    public RestClientTestService(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     private String token;
 
