@@ -1,7 +1,9 @@
 package es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos;
 
 import es.upm.miw.betca_tpv_core.domain.model.Tax;
-import es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos.synchronous.*;
+import es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos.synchronous.ArticleDao;
+import es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos.synchronous.CashierDao;
+import es.upm.miw.betca_tpv_core.infrastructure.mongodb.daos.synchronous.ProviderDao;
 import es.upm.miw.betca_tpv_core.infrastructure.mongodb.entities.ArticleEntity;
 import es.upm.miw.betca_tpv_core.infrastructure.mongodb.entities.CashierEntity;
 import es.upm.miw.betca_tpv_core.infrastructure.mongodb.entities.ProviderEntity;

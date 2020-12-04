@@ -33,7 +33,7 @@ public class ProviderService {
         return this.providerPersistence.findByCompanyAndActiveIsTrueNullSave(company);
     }
 
-    public Flux< Provider > findByCompanyAndNifAndSPhoneAndNoteNullSafe(String company, String nif, String phone, String note) {
-        return this.providerPersistence.findByCompanyAndNifAndSPhoneAndNoteNullSafe(company, nif, phone, note);
+    public Flux< Provider > findByCompanyAndPhoneAndNoteNullSafe(String company, String phone, String note) {
+        return this.providerPersistence.findByCompanyAndPhoneAndNoteNullSafe(company, phone, note);
     }
 }

@@ -13,11 +13,11 @@ public class Property {
         property = this;
     }
 
-    public String getMiwTpv() {
-        return miwTpv;
-    }
-
     public static Property getProperty() {
         return property;
+    }
+
+    public String getMiwTpv() {
+        return miwTpv;
     }
 }

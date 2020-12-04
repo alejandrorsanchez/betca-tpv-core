@@ -119,13 +119,12 @@ class ProviderResourceIT {
     }
 
     @Test
-    void testFindByCompanyAndNifAndSPhoneAndNoteNullSafe() {
+    void testFindByCompanyAndPhoneAndNoteNullSafe() {
         this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(PROVIDERS + SEARCH)
                         .queryParam("company", "ro")
-                        .queryParam("nif", "45")
                         .queryParam("note", "3")
                         .build())
                 .exchange()

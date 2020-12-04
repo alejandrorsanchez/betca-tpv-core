@@ -7,7 +7,6 @@ import es.upm.miw.betca_tpv_core.domain.model.CashierState;
 import es.upm.miw.betca_tpv_core.domain.services.CashierService;
 import es.upm.miw.betca_tpv_core.infrastructure.api.Rest;
 import es.upm.miw.betca_tpv_core.infrastructure.api.dtos.CashierLastDto;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

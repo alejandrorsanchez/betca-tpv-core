@@ -3,8 +3,6 @@ package es.upm.miw.betca_tpv_core.domain.services.utils;
 import es.upm.miw.betca_tpv_core.domain.model.Property;
 import es.upm.miw.betca_tpv_core.domain.model.ShoppingState;
 import es.upm.miw.betca_tpv_core.domain.model.Ticket;
-import org.springframework.boot.actuate.beans.BeansEndpoint;
-import org.springframework.context.ApplicationContext;
 
 import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;

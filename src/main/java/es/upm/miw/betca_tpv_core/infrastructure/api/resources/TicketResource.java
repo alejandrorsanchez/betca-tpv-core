@@ -3,7 +3,6 @@ package es.upm.miw.betca_tpv_core.infrastructure.api.resources;
 import es.upm.miw.betca_tpv_core.domain.model.Ticket;
 import es.upm.miw.betca_tpv_core.domain.services.TicketService;
 import es.upm.miw.betca_tpv_core.infrastructure.api.Rest;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

@@ -12,13 +12,12 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @Service
 public class RestClientTestService {
     private JwtService jwtService;
+    private String token;
 
     @Autowired
     public RestClientTestService(JwtService jwtService) {
         this.jwtService = jwtService;
     }
-
-    private String token;
 
     private boolean isRole(Role role) {
         try {/**/

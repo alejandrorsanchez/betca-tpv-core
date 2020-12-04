@@ -4,7 +4,6 @@ import es.upm.miw.betca_tpv_core.domain.model.Provider;
 import es.upm.miw.betca_tpv_core.domain.services.ProviderService;
 import es.upm.miw.betca_tpv_core.infrastructure.api.Rest;
 import es.upm.miw.betca_tpv_core.infrastructure.api.dtos.ProviderCompanyDto;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -53,12 +52,10 @@ public class ProviderResource {
     }
 
     @GetMapping(SEARCH)
-    public Flux< Provider > findByCompanyAndNifAndSPhoneAndNoteNullSafe(
-            @RequestParam(required = false) String company, @RequestParam(required = false) String nif,
-            @RequestParam(required = false) String phone, @RequestParam(required = false) String note) {
-        LogManager.getLogger(this.getClass()).debug("----------- oooo ---------------");
-        LogManager.getLogger(this.getClass()).debug("params: " + company + ',' + nif + ',' + phone + ',' + note);
-        return this.providerService.findByCompanyAndNifAndSPhoneAndNoteNullSafe(company, nif, phone, note)
+    public Flux< Provider > findByCompanyAndPhoneAndNoteNullSafe(
+            @RequestParam(required = false) String company, @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String note) {
+        return this.providerService.findByCompanyAndPhoneAndNoteNullSafe(company, phone, note)
                 .map(Provider::ofCompanyPhoneNote);// .doOnNext(LogManager.getLogger(this.getClass())::debug);
     }
 

@@ -19,10 +19,9 @@ public interface ProviderReactive extends ReactiveSortingRepository< ProviderEnt
 
     @Query("{$and:[" // allow NULL: all elements
             + "?#{ [0] == null ? {_id : {$ne:null}} : { company : {$regex:[0], $options: 'i'} } },"
-            + "?#{ [1] == null ? {_id : {$ne:null}} : { nif : {$regex:[1], $options: 'i'} } },"
-            + "?#{ [2] == null ? {_id : {$ne:null}} : { phone : {$regex:[2], $options: 'i'} } },"
-            + "?#{ [3] == null ? {_id : {$ne:null}} : { note :{$regex:[3], $options: 'i'} }  }"
+            + "?#{ [1] == null ? {_id : {$ne:null}} : { phone : {$regex:[1], $options: 'i'} } },"
+            + "?#{ [2] == null ? {_id : {$ne:null}} : { note :{$regex:[2], $options: 'i'} }  }"
             + "] }")
-    Flux< ProviderEntity > findByCompanyAndNifAndSPhoneAndNoteNullSafe(
-            String company, String nif, String phone, String note);
+    Flux< ProviderEntity > findByCompanyAndPhoneAndNoteNullSafe(
+            String company, String phone, String note);
 }
