@@ -76,7 +76,6 @@ public class ApiExceptionHandler {
     })
     @ResponseBody
     public ErrorMessage exception(Exception exception) { // The error must be corrected
-        exception.printStackTrace();
         return new ErrorMessage(exception, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 

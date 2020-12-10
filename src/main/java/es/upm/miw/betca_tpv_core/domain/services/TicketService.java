@@ -56,7 +56,7 @@ public class TicketService {
         ).then(); // Mono<Void>
     }
 
-    public Mono< byte[] > receipt(String id) {
+    public Mono< byte[] > readReceipt(String id) {
         return this.ticketPersistence.readById(id)
                 .flatMap(ticket -> this.readUserByUserMobileNullSafe(ticket.getUser())
                         .map(user -> {

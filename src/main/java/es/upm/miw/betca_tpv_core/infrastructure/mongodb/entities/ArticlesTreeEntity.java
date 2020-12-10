@@ -19,7 +19,7 @@ public abstract class ArticlesTreeEntity {
     private String reference;
     private TreeType treeType;
 
-    public ArticlesTreeEntity(String reference, TreeType treeType) {
+    protected ArticlesTreeEntity(String reference, TreeType treeType) {
         this.reference = reference;
         this.treeType = treeType;
     }

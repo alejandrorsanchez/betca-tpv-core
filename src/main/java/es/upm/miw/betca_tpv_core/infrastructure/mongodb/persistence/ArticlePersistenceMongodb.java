@@ -18,7 +18,6 @@ public class ArticlePersistenceMongodb implements ArticlePersistence {
 
     private ProviderReactive providerReactive;
     private ArticleReactive articleReactive;
-    private String barcode;
 
     @Autowired
     public ArticlePersistenceMongodb(ProviderReactive providerReactive, ArticleReactive articleReactive) {

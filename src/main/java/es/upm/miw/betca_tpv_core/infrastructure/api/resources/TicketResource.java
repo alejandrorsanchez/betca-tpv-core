@@ -30,8 +30,8 @@ public class TicketResource {
     }
 
     @GetMapping(value = ID_ID + RECEIPT, produces = {"application/pdf", "application/json"})
-    public Mono< byte[] > receipt(@PathVariable String id) {
-        return this.ticketService.receipt(id);
+    public Mono< byte[] > readReceipt(@PathVariable String id) {
+        return this.ticketService.readReceipt(id);
     }
 
 }

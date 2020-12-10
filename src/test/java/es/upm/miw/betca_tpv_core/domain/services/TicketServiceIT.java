@@ -104,7 +104,7 @@ class TicketServiceIT {
     @Test
     void testReceipt() {
         StepVerifier
-                .create(this.ticketService.receipt("5fa45e863d6e834d642689ac"))
+                .create(this.ticketService.readReceipt("5fa45e863d6e834d642689ac"))
                 .expectNextCount(1)
                 .verifyComplete();
     }

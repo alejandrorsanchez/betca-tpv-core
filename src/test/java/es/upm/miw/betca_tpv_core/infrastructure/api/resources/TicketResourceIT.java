@@ -47,10 +47,10 @@ class TicketResourceIT {
 
     @Test
     void testCreate() {
-        Shopping shopping1 = Shopping.builder().barcode("8400000000093").amount(1)
+        Shopping shopping1 = Shopping.builder().barcode("8400000000017") .retailPrice(new BigDecimal("20")).amount(1)
                 .discount(BigDecimal.ZERO).state(ShoppingState.COMMITTED).build();
-        Shopping shopping2 = Shopping.builder().barcode("8400000000093").amount(3)
-                .discount(new BigDecimal("7.13")).state(ShoppingState.NOT_COMMITTED).build();
+        Shopping shopping2 = Shopping.builder().barcode("8400000000024").retailPrice(new BigDecimal("27.8")).amount(3)
+                .discount(BigDecimal.TEN).state(ShoppingState.NOT_COMMITTED).build();
         Ticket ticket = Ticket.builder().cash(new BigDecimal("200"))
                 .card(BigDecimal.ZERO).voucher(BigDecimal.ZERO).note("note")
                 .shoppingList(List.of(shopping1, shopping2)).user(User.builder().mobile("666666004").build()).build();
@@ -63,10 +63,11 @@ class TicketResourceIT {
                 .expectBody(Ticket.class)
                 .value(Assertions::assertNotNull)
                 .value(returnTicket -> {
+                    System.out.println(">>>>> ticket: "+returnTicket+" total: "+returnTicket.total());
                     assertNotNull(returnTicket.getId());
                     assertNotNull(returnTicket.getReference());
                     assertNotNull(returnTicket.getCreationDate());
-                    assertEquals(0, new BigDecimal("67.02").compareTo(returnTicket.total()));
+                    assertEquals(0, new BigDecimal("95.06").compareTo(returnTicket.total()));
                 }).returnResult().getResponseBody();
         assertNotNull(dbTicket);
         this.restClientTestService.loginAdmin(webTestClient)
