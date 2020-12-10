@@ -35,7 +35,6 @@ public class TicketPersistenceMongodb implements TicketPersistence {
                             .map(articleEntity -> {
                                 shoppingEntity.setArticleEntity(articleEntity);
                                 shoppingEntity.setDescription(articleEntity.getDescription());
-                                shoppingEntity.setRetailPrice(articleEntity.getRetailPrice());
                                 return shoppingEntity;
                             });
                 }).doOnNext(ticketEntity::add)
