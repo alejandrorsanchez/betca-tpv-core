@@ -4,10 +4,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
 
-public class BigDecimalPositiveValidator implements ConstraintValidator< BigDecimalPositive, BigDecimal > {
+public class PositiveBigDecimalValidator implements ConstraintValidator< PositiveBigDecimal, BigDecimal > {
 
     @Override
-    public void initialize(BigDecimalPositive constraint) {
+    public void initialize(PositiveBigDecimal constraint) {
         // Empty, not operation
     }
 

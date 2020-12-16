@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = BigDecimalPositiveValidator.class)
-public @interface BigDecimalPositive {
+@Constraint(validatedBy = PositiveBigDecimalValidator.class)
+public @interface PositiveBigDecimal {
     String message() default "Expected positive";
 
     Class< ? >[] groups() default {};

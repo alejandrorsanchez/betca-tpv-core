@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
-    @NotNull
     @NotBlank
     private String mobile;
     private String firstName;

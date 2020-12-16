@@ -43,7 +43,8 @@ public class ProviderPersistenceMongodb implements ProviderPersistence {
                 .flatMap(providerEntity -> {
                     BeanUtils.copyProperties(provider, providerEntity);
                     return this.providerReactive.save(providerEntity);
-                }).map(ProviderEntity::toProvider);
+                })
+                .map(ProviderEntity::toProvider);
     }
 
     @Override
@@ -61,7 +62,9 @@ public class ProviderPersistenceMongodb implements ProviderPersistence {
     private Mono< Void > assertCompanyAndNifNotExist(String company, String nif) {
         return this.providerReactive.findByCompany(company)
                 .mergeWith(this.providerReactive.findByNif(nif))
-                .flatMap(provider -> Mono.error(new ConflictException("Existing already company or nif : " + company + "," + nif)))
+                .flatMap(provider -> Mono.error(new ConflictException
+                        ("Existing already company or nif : " + company + "," + nif)
+                ))
                 .then();
 
     }

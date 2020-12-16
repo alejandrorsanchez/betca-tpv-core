@@ -2,7 +2,7 @@ package es.upm.miw.betca_tpv_core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import es.upm.miw.betca_tpv_core.domain.model.validations.BigDecimalPositive;
+import es.upm.miw.betca_tpv_core.domain.model.validations.PositiveBigDecimal;
 import es.upm.miw.betca_tpv_core.domain.model.validations.ListNotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,11 +27,11 @@ public class Ticket {
     private LocalDateTime creationDate;
     @ListNotEmpty
     private List< Shopping > shoppingList;
-    @BigDecimalPositive
+    @PositiveBigDecimal
     private BigDecimal cash;
-    @BigDecimalPositive
+    @PositiveBigDecimal
     private BigDecimal card;
-    @BigDecimalPositive
+    @PositiveBigDecimal
     private BigDecimal voucher;
     @NotNull
     @NotBlank

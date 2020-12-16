@@ -30,7 +30,10 @@ public class ArticlePersistenceMongodb implements ArticlePersistence {
         return this.assertBarcodeNotExist(article.getBarcode())
                 .then(Mono.justOrEmpty(article.getProviderCompany()))
                 .flatMap(providerCompany -> this.providerReactive.findByCompany(article.getProviderCompany())
-                        .switchIfEmpty(Mono.error(new NotFoundException("Non existent company: " + article.getProviderCompany()))))
+                        .switchIfEmpty(Mono.error(
+                                new NotFoundException("Non existent company: " + article.getProviderCompany())
+                        ))
+                )
                 .map(providerEntity -> new ArticleEntity(article, providerEntity))
                 .switchIfEmpty(Mono.just(new ArticleEntity(article, null)))
                 .flatMap(this.articleReactive::save)
@@ -40,8 +43,7 @@ public class ArticlePersistenceMongodb implements ArticlePersistence {
     @Override
     public Mono< Article > readByBarcode(String barcode) {
         return this.articleReactive.findByBarcode(barcode)
-                .switchIfEmpty(Mono
-                        .error(new NotFoundException("Non existent article barcode: " + barcode)))
+                .switchIfEmpty(Mono.error(new NotFoundException("Non existent article barcode: " + barcode)))
                 .map(ArticleEntity::toArticle);
     }
 
@@ -60,9 +62,13 @@ public class ArticlePersistenceMongodb implements ArticlePersistence {
                 .flatMap(articleEntity -> {
                     BeanUtils.copyProperties(article, articleEntity);
                     return this.providerReactive.findByCompany(article.getProviderCompany())
-                            .switchIfEmpty(Mono.error(new NotFoundException("Non existent company: " + article.getProviderCompany())))
-                            .doOnNext(articleEntity::setProviderEntity)
-                            .map(providerEntity -> articleEntity);
+                            .switchIfEmpty(Mono.error(
+                                    new NotFoundException("Non existent company: " + article.getProviderCompany()))
+                            )
+                            .map(providerEntity -> {
+                                articleEntity.setProviderEntity(providerEntity);
+                                return articleEntity;
+                            });
                 })
                 .flatMap(this.articleReactive::save)
                 .map(ArticleEntity::toArticle);
@@ -100,7 +106,9 @@ public class ArticlePersistenceMongodb implements ArticlePersistence {
 
     private Mono< Void > assertBarcodeNotExist(String barcode) {
         return this.articleReactive.findByBarcode(barcode)
-                .flatMap(articleEntity -> Mono.error(new ConflictException("Article Barcode already exists : " + barcode)));
+                .flatMap(articleEntity -> Mono.error(
+                        new ConflictException("Article Barcode already exists : " + barcode)
+                ));
     }
 
 }

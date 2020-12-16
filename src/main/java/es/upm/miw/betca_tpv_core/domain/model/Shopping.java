@@ -1,7 +1,7 @@
 package es.upm.miw.betca_tpv_core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import es.upm.miw.betca_tpv_core.domain.model.validations.BigDecimalPositive;
+import es.upm.miw.betca_tpv_core.domain.model.validations.PositiveBigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +18,13 @@ import java.math.RoundingMode;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Shopping {
-    @NotNull
     @NotBlank
     private String barcode;
     private String description;
     private BigDecimal retailPrice;
     @NotNull
     private Integer amount;
-    @BigDecimalPositive
+    @PositiveBigDecimal
     private BigDecimal discount;
     @NotNull
     private ShoppingState state;

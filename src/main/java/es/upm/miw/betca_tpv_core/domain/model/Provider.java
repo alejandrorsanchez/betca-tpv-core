@@ -16,13 +16,10 @@ import java.util.Objects;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Provider {
-    @NotNull
     @NotBlank
     private String company;
-    @NotNull
     @NotBlank
     private String nif;
-    @NotNull
     @NotBlank
     private String phone;
     private String address;

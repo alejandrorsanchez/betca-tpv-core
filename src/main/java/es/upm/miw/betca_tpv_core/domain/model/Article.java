@@ -2,14 +2,13 @@ package es.upm.miw.betca_tpv_core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import es.upm.miw.betca_tpv_core.domain.model.validations.BigDecimalPositive;
+import es.upm.miw.betca_tpv_core.domain.model.validations.PositiveBigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -21,13 +20,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Article {
-    @NotNull
     @NotBlank
     private String barcode;
-    @NotNull
     @NotBlank
     private String description;
-    @BigDecimalPositive
+    @PositiveBigDecimal
     private BigDecimal retailPrice;
     private String reference;
     private Integer stock;

@@ -30,7 +30,8 @@ public class CashierService {
                 .map(cashier -> Cashier.builder().initialCash(cashier.getFinalCash())
                         .openingDate(LocalDateTime.now()).cashSales(ZERO).cardSales(ZERO).usedVouchers(ZERO)
                         .deposit(ZERO).withdrawal(ZERO).comment("").build()
-                ).flatMap(this.cashierPersistence::create)
+                )
+                .flatMap(this.cashierPersistence::create)
                 .then();
     }
 
@@ -58,10 +59,10 @@ public class CashierService {
     public Mono< Cashier > close(CashierClose cashierClose) {
         return this.lastByOpenedAssure(true)
                 .map(lastCashier -> {
-                    lastCashier.close(cashierClose.getFinalCash(), cashierClose.getFinalCard(),
-                            cashierClose.getComment());
+                    lastCashier.close(cashierClose.getFinalCash(), cashierClose.getFinalCard(), cashierClose.getComment());
                     return lastCashier;
-                }).flatMap(lastCashier -> this.cashierPersistence.update(lastCashier.getId(), lastCashier));
+                })
+                .flatMap(lastCashier -> this.cashierPersistence.update(lastCashier.getId(), lastCashier));
     }
 
     Mono< Cashier > addSale(BigDecimal cash, BigDecimal card, BigDecimal voucher) {
@@ -69,7 +70,8 @@ public class CashierService {
                 .map(lastCashier -> {
                     lastCashier.addSale(cash, card, voucher);
                     return lastCashier;
-                }).flatMap(lastCashier -> this.cashierPersistence.update(lastCashier.getId(), lastCashier));
+                })
+                .flatMap(lastCashier -> this.cashierPersistence.update(lastCashier.getId(), lastCashier));
     }
 
 }
