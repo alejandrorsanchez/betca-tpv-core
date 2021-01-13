@@ -3,8 +3,6 @@ package es.upm.miw.betca_tpv_core.infrastructure.api;
 
 import es.upm.miw.betca_tpv_core.configuration.JwtService;
 import es.upm.miw.betca_tpv_core.infrastructure.api.http_errors.Role;
-import es.upm.miw.betca_tpv_core.infrastructure.api.http_errors.UnauthorizedException;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -20,12 +18,7 @@ public class RestClientTestService {
     }
 
     private boolean isRole(Role role) {
-        try {/**/
-            return this.token != null && jwtService.role(this.token).equals(role.name());
-        } catch (UnauthorizedException e) {
-            LogManager.getLogger(this.getClass()).error("------- is role exception: " + role);
-        }
-        return false;
+        return this.token != null && jwtService.role(this.token).equals(role.name());
     }
 
     private WebTestClient login(Role role, String user, String name, WebTestClient webTestClient) {

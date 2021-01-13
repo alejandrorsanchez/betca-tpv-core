@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 @TestConfig
 class JwtServiceTest {
 
@@ -14,6 +16,8 @@ class JwtServiceTest {
 
     @Test
     void testCreateToken() {
-        LogManager.getLogger(this.getClass()).info("token:" + jwtService.createToken("666666000", "adm", Role.ADMIN.name()));
+        String token = jwtService.createToken("666666000", "adm", Role.ADMIN.name());
+        assertFalse(token.isEmpty());
+        LogManager.getLogger(this.getClass()).info("token:" + token);
     }
 }

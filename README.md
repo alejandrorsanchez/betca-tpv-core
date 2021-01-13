@@ -6,5 +6,9 @@ mediante Angular, funcionando conjuntamente con Front-ends. Proyecto global: [be
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `Spring-boot` 
 
+## :gear: Ejecución en local
+1. Ejecutar el motor de MongoDB: `mongodb://localhost:27017/tpv`
+1. Ejecutar en consola: `mvn clean spring-boot:run`
+
 ## :book: Documentación del proyecto
-[betca-tpv: Core](https://github.com/miw-upm/betca-tpv#arquitectura-del-front-end-spring-core-mediante-arquitectura-hexagonal).
+[betca-tpv: Core](https://github.com/miw-upm/betca-tpv#back-end-core).

@@ -2,6 +2,7 @@ package es.upm.miw.betca_tpv_core.infrastructure.api.http_errors;
 
 
 import es.upm.miw.betca_tpv_core.domain.exceptions.*;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,12 +14,11 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler({
-            UnauthorizedException.class,
             org.springframework.security.access.AccessDeniedException.class
     })
     @ResponseBody
-    public void unauthorizedRequest() {
-        //Empty. Nothing to do
+    public void unauthorizedRequest(Exception exception) {
+        LogManager.getLogger(this.getClass()).debug(() -> "Unauthorized: " + exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
