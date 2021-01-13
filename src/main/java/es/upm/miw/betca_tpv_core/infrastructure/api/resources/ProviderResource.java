@@ -56,7 +56,7 @@ public class ProviderResource {
             @RequestParam(required = false) String company, @RequestParam(required = false) String phone,
             @RequestParam(required = false) String note) {
         return this.providerService.findByCompanyAndPhoneAndNoteNullSafe(company, phone, note)
-                .map(Provider::ofCompanyPhoneNote);// .doOnNext(LogManager.getLogger(this.getClass())::debug);
+                .map(Provider::ofCompanyPhoneNote);
     }
 
 }

@@ -18,10 +18,6 @@ public enum UUIDBase64 {
         this.decoder = decoder;
     }
 
-    public static void main(String[] args) {
-        System.out.println(UUIDBase64.URL.encode());
-    }
-
     public String encode() {
         UUID value = UUID.randomUUID();
         ByteBuffer buffer = ByteBuffer.allocate(16).putLong(value.getMostSignificantBits()).putLong(value.getLeastSignificantBits());

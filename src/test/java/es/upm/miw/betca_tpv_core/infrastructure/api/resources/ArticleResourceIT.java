@@ -3,6 +3,7 @@ package es.upm.miw.betca_tpv_core.infrastructure.api.resources;
 import es.upm.miw.betca_tpv_core.domain.model.Article;
 import es.upm.miw.betca_tpv_core.domain.model.Provider;
 import es.upm.miw.betca_tpv_core.infrastructure.api.RestClientTestService;
+import es.upm.miw.betca_tpv_core.infrastructure.api.dtos.ArticleBarcodesDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,5 +149,22 @@ class ArticleResourceIT {
                 .value(Assertions::assertNotNull)
                 .value(articles -> assertTrue(articles.stream()
                         .anyMatch(article -> Objects.isNull(article.getProviderCompany()))));
+    }
+
+    @Test
+    void testFindByBarcode() {
+        this.restClientTestService.loginAdmin(webTestClient)
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(ARTICLES + BARCODE)
+                        .queryParam("barcode", "100")
+                        .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(ArticleBarcodesDto.class)
+                .value(Assertions::assertNotNull)
+                .value(barcodesDto -> assertTrue(barcodesDto.getBarcodes().stream()
+                        .allMatch(barcode -> barcode.contains("100"))
+                ));
     }
 }

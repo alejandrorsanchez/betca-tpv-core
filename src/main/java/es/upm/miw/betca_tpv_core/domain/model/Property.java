@@ -5,13 +5,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Property {
-    private static Property property;
+    private static final Property property = new Property();
+    @Value("${miw.tpv}")
     private String miwTpv;
-
-    public Property(@Value("${miw.tpv}") String miwTpv) {
-        this.miwTpv = miwTpv;
-        property = this;
-    }
 
     public static Property getProperty() {
         return property;

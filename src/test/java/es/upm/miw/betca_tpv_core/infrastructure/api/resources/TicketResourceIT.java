@@ -47,7 +47,7 @@ class TicketResourceIT {
 
     @Test
     void testCreate() {
-        Shopping shopping1 = Shopping.builder().barcode("8400000000017") .retailPrice(new BigDecimal("20")).amount(1)
+        Shopping shopping1 = Shopping.builder().barcode("8400000000017").retailPrice(new BigDecimal("20")).amount(1)
                 .discount(BigDecimal.ZERO).state(ShoppingState.COMMITTED).build();
         Shopping shopping2 = Shopping.builder().barcode("8400000000024").retailPrice(new BigDecimal("27.8")).amount(3)
                 .discount(BigDecimal.TEN).state(ShoppingState.NOT_COMMITTED).build();
@@ -63,7 +63,7 @@ class TicketResourceIT {
                 .expectBody(Ticket.class)
                 .value(Assertions::assertNotNull)
                 .value(returnTicket -> {
-                    System.out.println(">>>>> ticket: "+returnTicket+" total: "+returnTicket.total());
+                    System.out.println(">>>>> ticket: " + returnTicket + " total: " + returnTicket.total());
                     assertNotNull(returnTicket.getId());
                     assertNotNull(returnTicket.getReference());
                     assertNotNull(returnTicket.getCreationDate());

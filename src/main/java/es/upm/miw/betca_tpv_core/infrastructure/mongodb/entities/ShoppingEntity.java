@@ -20,7 +20,7 @@ public class ShoppingEntity {
     private BigDecimal retailPrice;
     private Integer amount;
     private BigDecimal discount;
-    private ShoppingState State;
+    private ShoppingState state;
 
     public ShoppingEntity(Shopping shopping) {
         BeanUtils.copyProperties(shopping, this);
